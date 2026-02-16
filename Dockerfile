@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     HOME=/root \
     TZ=Asia/Singapore
 
-RUN sed -i 's/main/main non-free non-free-firmware contrib/' /etc/apt/sources.list \
+RUN sed -i 's/Components: main/Components: main contrib non-free non-free-firmware/' /etc/apt/sources.list.d/debian.sources \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
         xorg \
@@ -37,6 +37,7 @@ RUN sed -i 's/main/main non-free non-free-firmware contrib/' /etc/apt/sources.li
     && echo $TZ > /etc/timezone \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
 
 
 
