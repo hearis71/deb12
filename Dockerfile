@@ -25,7 +25,7 @@ RUN apt-get update \
         htop \
         pcmanfm \
         nano \
-        leafpad \
+        mousepad \
     && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
     && echo $TZ > /etc/timezone \
     && apt-get clean \
