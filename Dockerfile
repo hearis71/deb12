@@ -6,7 +6,8 @@ ENV DEBIAN_FRONTEND=noninteractive \
     HOME=/root \
     TZ=Asia/Singapore
 
-RUN apt-get update \
+RUN sed -i 's/main/main non-free non-free-firmware contrib/' /etc/apt/sources.list \
+    && apt-get update \
     && apt-get install -y --no-install-recommends \
         xorg \
         xvfb \
@@ -26,10 +27,17 @@ RUN apt-get update \
         pcmanfm \
         nano \
         mousepad \
+        ffmpeg \
+        libavcodec-extra \
+        gstreamer1.0-libav \
+        gstreamer1.0-plugins-good \
+        gstreamer1.0-plugins-bad \
+        gstreamer1.0-plugins-ugly \
     && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
     && echo $TZ > /etc/timezone \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
 
 
 RUN git clone https://github.com/novnc/noVNC.git /opt/novnc \
