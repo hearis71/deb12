@@ -3,7 +3,8 @@ FROM debian:12-slim
 ENV DEBIAN_FRONTEND=noninteractive \
     DISPLAY=:0 \
     LANG=C.UTF-8 \
-    HOME=/root
+    HOME=/root \
+    TZ=Asia/Singapore
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -23,8 +24,13 @@ RUN apt-get update \
         ranger \
         htop \
         pcmanfm \
+        nano \
+        leafpad \
+    && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
+    && echo $TZ > /etc/timezone \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
 
 RUN git clone https://github.com/novnc/noVNC.git /opt/novnc \
     && git clone https://github.com/novnc/websockify.git /opt/novnc/utils/websockify
